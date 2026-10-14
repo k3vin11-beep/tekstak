@@ -10,6 +10,7 @@
     { "name": "Thakani's Wigs", "type": "Website for a wig business", "image": "/src/assets/uploads/work-5.jpg", "alt": "Preview of the Thakani's Wigs website", "url": "" },
     { "name": "The 24th Vision", "type": "Portfolio and gallery website", "image": "/src/assets/uploads/work-6.jpg", "alt": "Preview of The 24th Vision website", "url": "https://k3vin11-beep.github.io/the-24th-vision/" },
     { "name": "Ndzalos Digital Portfolio", "type": "Portfolio website for an actuary", "image": "/src/assets/uploads/work-7.jpg", "alt": "Preview of Ndzalos digital portfolio website", "url": "https://k3vin11-beep.github.io/ndzalo-portfolio/" },
-    { "name" : "Khodanis Digital Portfolio", "type": "Portfolio website for a final year Bcom Law Student" , "image": "/src/assets/uploads/work-8.jpg", "alt": "Preview of Khodanis digital portfolio website", "url": "https://k3vin11-beep.github.io/khodani-portfolio/"}
+    { "name" : "Khodanis Digital Portfolio", "type": "Portfolio website for a final year Bcom Law Student" , "image": "/src/assets/uploads/work-8.jpg", "alt": "Preview of Khodanis digital portfolio website", "url": "https://k3vin11-beep.github.io/khodani-portfolio/"},
+    { "name" : "Lux Pixels Digital Gallery", "type": "Portfolio and Gallery Website", "image":"/src/assets/uploads/work-9.jpg", "alt": "Preview of Lux Pixels site", "url": "https://k3vin11-beep.github.io/lux-pixels/"},
   ]
 }
