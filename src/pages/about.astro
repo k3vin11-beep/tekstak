@@ -1,0 +1,29 @@
+---
+/*
+  WHAT THIS FILE DOES: the ABOUT page (address: /about/).
+  The text lives in src/content/about.md. The part between the --- lines at the top of that file
+  (title, Google title and description, picture) is "frontmatter"; everything below it is the page text.
+*/
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Img from "../components/Img.astro";
+import * as aboutPage from "../content/about.md";
+
+const { Content, frontmatter } = aboutPage;
+---
+<BaseLayout
+  title={frontmatter.seoTitle || "About us"}
+  description={frontmatter.description}
+  breadcrumbs={[{ name: "About", path: "/about/" }]}
+>
+  <section class="section">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">About us</p>
+        <h1>{frontmatter.title}</h1>
+        <div class="prose"><Content /></div>
+        <div class="actions"><a class="btn" href="/contact/">Get in touch</a></div>
+      </div>
+      <Img src={frontmatter.image} alt={frontmatter.imageAlt} width={1000} widths={[400, 700, 1000]} sizes="(max-width: 860px) 100vw, 50vw" />
+    </div>
+  </section>
+</BaseLayout>

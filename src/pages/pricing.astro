@@ -1,0 +1,53 @@
+---
+/* WHAT THIS FILE DOES: the PRICING page (address: /pricing/). Plans and maintenance plans come from
+   src/content/pricing.json. Set "highlighted": true on one plan to mark it "Most popular".
+   Each button opens the contact form with that package already selected. */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import site from "../config/site";
+import pricing from "../content/pricing.json";
+---
+<BaseLayout
+  title={pricing.seoTitle || "Pricing"}
+  description={pricing.seoDescription || `Prices and packages from ${site.name}.`}
+  breadcrumbs={[{ name: "Pricing", path: "/pricing/" }]}
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Pricing</p>
+      <h1>Simple, clear pricing</h1>
+      <p class="lead">{pricing.intro}</p>
+      <div class="grid grid-4" style="margin-top: 36px;">
+        {pricing.plans.map((plan) => (
+          <div class:list={["card", "plan-card", plan.highlighted && "card-highlight"]}>
+            {plan.highlighted && <span class="sticker">Most popular</span>}
+            <h3>{plan.name}</h3>
+            <p class="price">{plan.price}</p>
+            <p class="muted">{plan.text}</p>
+            <ul>{plan.points.map((p) => <li>{p}</li>)}</ul>
+            <a class="btn" href={`/contact/?service=${encodeURIComponent(plan.name)}`}>Get a quote</a>
+          </div>
+        ))}
+      </div>
+      {pricing.note && <p class="muted" style="margin-top: 28px; max-width: 760px;">{pricing.note}</p>}
+    </div>
+  </section>
+
+  {pricing.maintenance && pricing.maintenance.length > 0 && (
+    <section class="section section-soft">
+      <div class="container">
+        <h2>{pricing.maintenanceTitle}</h2>
+        <p class="lead">{pricing.maintenanceIntro}</p>
+        <div class="grid grid-3" style="margin-top: 32px;">
+          {pricing.maintenance.map((m) => (
+            <div class="card plan-card">
+              <h3>{m.name}</h3>
+              <p class="price">{m.price}</p>
+              <ul>{m.points.map((p) => <li>{p}</li>)}</ul>
+              <a class="btn btn-ghost" href="/contact/?service=Maintenance%20plan">Ask about this plan</a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

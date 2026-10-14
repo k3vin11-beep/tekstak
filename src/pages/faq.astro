@@ -1,0 +1,32 @@
+---
+/* WHAT THIS FILE DOES: the FAQ page (address: /faq/). Questions come from src/content/faq.json.
+   Each question opens and closes with no JavaScript (a plain HTML <details> element).
+   It also adds FAQ schema markup so Google understands every question and answer. */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import JsonLd from "../components/JsonLd.astro";
+import { faqSchema } from "../lib/schema";
+import site from "../config/site";
+import faq from "../content/faq.json";
+---
+<BaseLayout
+  title={faq.seoTitle || "FAQ"}
+  description={faq.seoDescription || `Answers to common questions about ${site.name}: bookings, prices, timing and payment.`}
+  breadcrumbs={[{ name: "FAQ", path: "/faq/" }]}
+>
+  <JsonLd slot="head" data={faqSchema(faq.questions)} />
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">FAQ</p>
+      <h1>Frequently asked questions</h1>
+      <p class="lead">{faq.intro}</p>
+      <div class="faq">
+        {faq.questions.map((q) => (
+          <details class="faq-item">
+            <summary>{q.question}</summary>
+            <p>{q.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

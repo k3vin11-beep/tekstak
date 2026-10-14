@@ -1,0 +1,49 @@
+---
+/* WHAT THIS FILE DOES: a blog CATEGORY page (address: /blog/category/tips/). One is built for every category
+   that has at least one post. */
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Img from "../../../components/Img.astro";
+import site from "../../../config/site";
+import { posts, categories, formatDate } from "../../../lib/blog";
+
+export function getStaticPaths() {
+  return categories.map((c) => ({
+    params: { category: c.slug },
+    props: { category: c, categoryPosts: posts.filter((p) => p.category === c.name) },
+  }));
+}
+
+const { category, categoryPosts } = Astro.props;
+---
+<BaseLayout
+  title={`${category.name} posts`}
+  description={`Blog posts about ${category.name.toLowerCase()} from ${site.name}.`}
+  breadcrumbs={[{ name: "Blog", path: "/blog/" }, { name: category.name, path: `/blog/category/${category.slug}/` }]}
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Blog category</p>
+      <h1>{category.name}</h1>
+      <p style="margin-top: 24px;">
+        <a class="pill" href="/blog/">All posts</a>
+        {categories.map((c) => (
+          <a class="pill" href={`/blog/category/${c.slug}/`} aria-current={c.slug === category.slug ? "page" : undefined}>{c.name} ({c.count})</a>
+        ))}
+      </p>
+      <div class="post-grid">
+        {categoryPosts.map((post) => (
+          <article class="post-card">
+            <a href={`/blog/${post.slug}/`} tabindex="-1" aria-hidden="true">
+              <Img src={post.image} alt="" width={600} widths={[400, 600]} sizes="(max-width: 860px) 100vw, 33vw" />
+            </a>
+            <div class="body">
+              <p class="post-meta">{formatDate(post.date)}</p>
+              <h3><a href={`/blog/${post.slug}/`}>{post.title}</a></h3>
+              <p class="muted">{post.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

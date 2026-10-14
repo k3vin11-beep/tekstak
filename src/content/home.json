@@ -1,0 +1,17 @@
+{
+  "seoTitle": "Websites for Small Businesses in Pretoria | TeKStak Studios",
+  "seoDescription": "Landing pages and business websites for small businesses in Pretoria, from R1,499. Clear prices, set time frames and revision rounds. Get a quote today.",
+  "heroTitle": "Professional websites for your business,",
+  "heroHighlight": "from R1,499.",
+  "heroText": "TeKStak Studios builds landing pages and business websites for small businesses in Pretoria. Clear prices, set time frames and a limit on revision rounds, so you know what to expect before we start.",
+  "heroImage": "/src/assets/uploads/hero.jpg",
+  "heroImageAlt": "The TeKStak Studios mark, a lime green >_ symbol on a charcoal background with pink paint splatter",
+  "highlightsTitle": "Why TeKStak",
+  "highlights": [
+    { "title": "Clear, upfront pricing", "text": "Four packages with the price, time frame and number of revision rounds written down. No surprises." },
+    { "title": "Built to be found", "text": "Every site has proper page titles, descriptions and a mobile-friendly design. Higher packages add a sitemap, schema markup and a blog." },
+    { "title": "Support after launch", "text": "Optional monthly maintenance plans keep your site online and up to date, starting at R500 a month." }
+  ],
+  "ctaTitle": "Ready to get started?",
+  "ctaText": "Tell us about your business and we will get back to you with a quote."
+}

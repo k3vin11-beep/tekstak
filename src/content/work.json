@@ -1,0 +1,14 @@
+{
+  "seoTitle": "Our Work: Websites We Have Built",
+  "seoDescription": "A look at websites TeKStak Studios has built for small businesses and individuals in Pretoria, from bakeries to portfolios.",
+  "intro": "Some of the sites we have built.",
+  "projects": [
+    { "name": "Briis Best Bakes", "type": "Home bakery site with a photo gallery of cakes, cupcakes and custom bakes", "image": "/src/assets/uploads/work-1.jpg", "alt": "Preview of the Briis Best Bakes website", "url": "" },
+    { "name": "Cynosure Wig Atelier", "type": "Wig installation services and price list", "image": "/src/assets/uploads/work-2.jpg", "alt": "Preview of the Cynosure Wig Atelier website", "url": "" },
+    { "name": "Mvuni's Digital Portfolio", "type": "Portfolio website for a web developer", "image": "/src/assets/uploads/work-3.jpg", "alt": "Preview of Mvuni's digital portfolio website", "url": "https://k3vin11-beep.github.io/personal-portfolio/" },
+    { "name": "Land of Laundry", "type": "Laundry service packages and pricing", "image": "/src/assets/uploads/work-4.jpg", "alt": "Preview of the Land of Laundry website", "url": "" },
+    { "name": "Thakani's Wigs", "type": "Website for a wig business", "image": "/src/assets/uploads/work-5.jpg", "alt": "Preview of the Thakani's Wigs website", "url": "" },
+    { "name": "The 24th Vision", "type": "Portfolio and gallery website", "image": "/src/assets/uploads/work-6.jpg", "alt": "Preview of The 24th Vision website", "url": "" },
+    { "name": "Ndzalos Digital Portfolio", "type": "Portfolio website for an actuary", "image": "/src/assets/uploads/work-7.jpg", "alt": "Preview of the Ndzalos digital portfolio website", "url": "" }
+  ]
+}

@@ -1,0 +1,7 @@
+---
+/* WHAT THIS FILE DOES: prints one block of schema markup (see src/lib/schema.ts) into the page. */
+const { data } = Astro.props;
+// the replace() stops anything typed in the CMS from being able to break out of the script tag
+const json = JSON.stringify(data).replace(/</g, "\\u003c");
+---
+<script type="application/ld+json" set:html={json} />

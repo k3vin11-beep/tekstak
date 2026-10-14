@@ -1,0 +1,14 @@
+---
+/*
+  WHAT THIS FILE DOES: shows a picture the optimised way.
+  Astro shrinks it, converts it to a modern format (WebP) and makes several sizes so phones
+  download a small version. This is the "image optimization" in the Standard package.
+  Use it like:  <Img src="/src/assets/uploads/hero.jpg" alt="Describe the photo" width={1200} />
+*/
+import { Image } from "astro:assets";
+import { getImage } from "../lib/images";
+
+const { src, alt, width = 1200, loading = "lazy", ...rest } = Astro.props;
+const image = getImage(src);
+---
+<Image src={image} alt={alt} width={width} loading={loading} {...rest} />

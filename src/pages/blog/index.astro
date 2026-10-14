@@ -1,0 +1,40 @@
+---
+/* WHAT THIS FILE DOES: the BLOG list page (address: /blog/). It shows every post, newest first,
+   with category buttons across the top. Heading and intro come from src/content/blog.json. */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Img from "../../components/Img.astro";
+import site from "../../config/site";
+import blog from "../../content/blog.json";
+import { posts, categories, formatDate } from "../../lib/blog";
+---
+<BaseLayout
+  title={blog.seoTitle || "Blog"}
+  description={blog.seoDescription || `News, tips and updates from ${site.name}.`}
+  breadcrumbs={[{ name: "Blog", path: "/blog/" }]}
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Blog</p>
+      <h1>{blog.heading}</h1>
+      <p class="lead">{blog.intro}</p>
+      <p style="margin-top: 24px;">
+        <a class="pill" href="/blog/" aria-current="page">All posts</a>
+        {categories.map((c) => <a class="pill" href={`/blog/category/${c.slug}/`}>{c.name} ({c.count})</a>)}
+      </p>
+      <div class="post-grid">
+        {posts.map((post) => (
+          <article class="post-card">
+            <a href={`/blog/${post.slug}/`} tabindex="-1" aria-hidden="true">
+              <Img src={post.image} alt="" width={600} widths={[400, 600]} sizes="(max-width: 860px) 100vw, 33vw" />
+            </a>
+            <div class="body">
+              <p class="post-meta">{formatDate(post.date)} · {post.category}</p>
+              <h3><a href={`/blog/${post.slug}/`}>{post.title}</a></h3>
+              <p class="muted">{post.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

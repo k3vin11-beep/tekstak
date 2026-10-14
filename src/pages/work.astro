@@ -1,0 +1,34 @@
+---
+/* WHAT THIS FILE DOES: the OUR WORK page (address: /work/). Projects come from src/content/work.json.
+   Replace each placeholder picture with a screenshot of the finished site, and add the live link in "url". */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Img from "../components/Img.astro";
+import site from "../config/site";
+import work from "../content/work.json";
+---
+<BaseLayout
+  title={work.seoTitle || "Our work"}
+  description={work.seoDescription || `Websites built by ${site.name}.`}
+  breadcrumbs={[{ name: "Our work", path: "/work/" }]}
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Our work</p>
+      <h1>Websites we have built</h1>
+      <p class="lead">{work.intro}</p>
+      <div class="grid grid-3" style="margin-top: 32px;">
+        {work.projects.map((p, i) => (
+          <article class="card work-card">
+            <Img src={p.image} alt={p.alt} width={700} widths={[400, 700]} sizes="(max-width: 860px) 100vw, 33vw" />
+            <div class="work-body">
+              <p class="tag">0{i + 1}</p>
+              <h3>{p.name}</h3>
+              <p class="muted">{p.type}</p>
+              {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer">Visit site →</a>}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

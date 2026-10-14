@@ -1,0 +1,19 @@
+{
+  "seoTitle": "Website Packages and Prices in Pretoria",
+  "seoDescription": "Website packages from R1,499: landing page, Basic, Standard and Premium. See prices, time frames, revision rounds and optional maintenance plans.",
+  "intro": "Four packages, with the price, time frame and revision rounds written down.",
+  "plans": [
+    { "name": "Landing Page", "price": "From R1,499", "text": "One page that gets you online.", "points": ["1 page", "Mobile-friendly design", "WhatsApp contact button linked to your number", "Your contact details and business info", "Time frame: 2 weeks", "Revisions: 2 rounds of changes"], "highlighted": false },
+    { "name": "Basic Website", "price": "R3,499", "text": "A simple multi-page site for a small business.", "points": ["Up to 5 pages", "Changes made by us (no CMS)", "SEO basics: page titles, descriptions, mobile-friendly", "No blog", "Google Analytics (GA4) installed", "Time frame: 2 weeks", "Revisions: 2 rounds of changes", "Extra pages: R500 each"], "highlighted": false },
+    { "name": "Standard Website", "price": "R5,999", "text": "For businesses that want to edit their own text and images.", "points": ["Up to 7 pages", "Editing screen (CMS) for text and images", "Sitemap, image optimization and Google Business Profile setup", "No blog", "Google Analytics (GA4) and Search Console", "Time frame: 3 weeks", "Revisions: 3 rounds of changes", "Extra pages: R450 each"], "highlighted": true },
+    { "name": "Premium Website", "price": "R9,999", "text": "Built to rank on Google and bring in leads.", "points": ["Up to 10 pages", "Editing screen (CMS) plus a short training session", "Advanced SEO: schema markup, speed tuning, keyword-targeted content", "Blog with categories", "GA4 with event tracking (form sends, WhatsApp clicks, calls)", "Time frame: 4 weeks", "Revisions: 3 rounds of changes", "Extra pages: R400 each"], "highlighted": false }
+  ],
+  "note": "A revision round is one batch of changes you send us together. Time frames depend on how quickly you send content and feedback. Anything not listed in a package is quoted separately.",
+  "maintenanceTitle": "Monthly maintenance plans",
+  "maintenanceIntro": "Optional. Keep your site running after launch. Billed monthly. Hosting and domain costs are quoted separately.",
+  "maintenance": [
+    { "name": "Basic", "price": "R500/month", "points": ["Uptime checks", "Fixes if something breaks", "1 small content change a month", "Replies within 3 business days"] },
+    { "name": "Standard", "price": "R1,000/month", "points": ["Everything in Basic", "Up to 2 hours of changes a month", "Replies within 1 business day"] },
+    { "name": "Premium", "price": "R1,800/month", "points": ["Everything in Standard", "Up to 4 hours of changes a month", "Priority fixes when something goes wrong"] }
+  ]
+}

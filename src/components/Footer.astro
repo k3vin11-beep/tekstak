@@ -1,0 +1,42 @@
+---
+/* WHAT THIS FILE DOES: the footer at the bottom of every page. Everything in it comes from business.json. */
+import site from "../config/site";
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h3>{site.name}</h3>
+        <p>{site.tagline}</p>
+        <p>{site.address}</p>
+      </div>
+      <div>
+        <h3>Pages</h3>
+        <p>
+          <a href="/about/">About</a><br />
+          <a href="/services/">Services</a><br />
+          <a href="/work/">Our work</a><br />
+          <a href="/pricing/">Pricing</a><br />
+          <a href="/faq/">FAQ</a><br />
+          <a href="/blog/">Blog</a><br />
+          <a href="/contact/">Contact</a>
+        </p>
+      </div>
+      <div>
+        <h3>Get in touch</h3>
+        <p>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          {site.phone && <><br /><a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a></>}
+          {site.hours && <><br />{site.hours}</>}
+        </p>
+        <p>
+          {site.instagram && <a href={site.instagram} target="_blank" rel="noopener">Instagram</a>}
+          {site.instagram && site.facebook && " · "}
+          {site.facebook && <a href={site.facebook} target="_blank" rel="noopener">Facebook</a>}
+        </p>
+      </div>
+    </div>
+    <p class="footer-small">© {year} {site.name}. All rights reserved.</p>
+  </div>
+</footer>

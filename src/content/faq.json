@@ -1,0 +1,14 @@
+{
+  "seoTitle": "Website Design FAQ",
+  "seoDescription": "Answers to common questions about TeKStak Studios packages: prices, time frames, revisions, editing your own site and maintenance.",
+  "intro": "Quick answers to the questions we hear most.",
+  "questions": [
+    { "question": "How do I get started?", "answer": "Fill in the form on the contact page. We email you back, and WhatsApp opens with your message so you can chat with us straight away." },
+    { "question": "How long does a website take?", "answer": "A Landing Page or Basic website takes about 2 weeks, a Standard website about 3 weeks and a Premium website about 4 weeks. Time frames depend on how quickly you send us your content and feedback." },
+    { "question": "How many revisions do I get?", "answer": "Landing Page and Basic include 2 rounds of changes. Standard and Premium include 3. A round is one batch of changes you send us together." },
+    { "question": "Can I edit the website myself?", "answer": "Standard and Premium come with an editing screen where you can change text and photos. On Landing Page and Basic we make the changes for you." },
+    { "question": "Do you offer help after launch?", "answer": "Yes. Optional monthly maintenance plans start at R500 a month. Hosting and domain costs are quoted separately." },
+    { "question": "What if I need more pages?", "answer": "Extra pages are R500 each on Basic, R450 on Standard and R400 on Premium." },
+    { "question": "Where are you based?", "answer": "We are based in Pretoria, South Africa, and work with small businesses and individuals." }
+  ]
+}

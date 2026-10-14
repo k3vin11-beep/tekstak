@@ -1,0 +1,12 @@
+{
+  "seoTitle": "Web Design Services in Pretoria",
+  "seoDescription": "Landing pages, business websites and monthly maintenance for small businesses in Pretoria. See what we build and ask for a quote.",
+  "intro": "We build websites for small businesses in Pretoria. Pick a package, or tell us what you need and we will quote it.",
+  "items": [
+    { "name": "Landing pages", "price": "From R1,499", "text": "One clean page that tells customers who you are and gives them an easy way to get in touch.", "points": ["1 page", "Mobile-friendly design", "WhatsApp contact button linked to your number"] },
+    { "name": "Business websites", "price": "From R3,499", "text": "A multi-page website with your services, photos and a contact form. Higher packages add an editing screen, stronger SEO and a blog.", "points": ["Up to 5, 7 or 10 pages", "Optional editing screen (CMS)", "SEO and Google Analytics set up"] },
+    { "name": "Maintenance plans", "price": "From R500/month", "text": "We keep your site running after launch and make small changes for you.", "points": ["Uptime checks and fixes", "Content changes each month", "Replies within an agreed time"] },
+    { "name": "Full-stack web applications", "price": "Coming soon", "text": "Custom web apps with logins, databases and dashboards built around how your business works.", "points": [] },
+    { "name": "IT admin systems", "price": "Coming soon", "text": "Internal tools to manage your staff, stock, bookings and records in one place.", "points": [] }
+  ]
+}

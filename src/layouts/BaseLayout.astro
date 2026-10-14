@@ -1,0 +1,99 @@
+---
+/*
+  WHAT THIS FILE DOES: it is the "frame" every page sits inside.
+  - Builds the <head>: page title, meta description, canonical link (SEO basics)
+  - Adds Open Graph tags (the title, text and picture shown when the site is shared on WhatsApp or Facebook)
+  - Adds SCHEMA MARKUP: a LocalBusiness block on every page, plus a breadcrumb trail on inner pages.
+    Pages can add more (FAQ, blog article) through the "head" slot.
+  - Adds the Google Search Console verification tag when you set one in developer.json
+  - Adds Google Analytics 4 AND event tracking (WhatsApp, calls, email, form sends) when a GA4 ID is set
+  - Shows the header and footer on every page (the fonts are self-hosted, so there are no Google Fonts requests)
+  Each page passes in its own `title` and `description` (the CMS lets the client or you edit these for SEO).
+*/
+import "@fontsource/anton/latin-400.css";
+import "@fontsource/permanent-marker/latin-400.css";
+import "@fontsource/ibm-plex-sans/latin-400.css";
+import "@fontsource/ibm-plex-sans/latin-600.css";
+import "../styles/global.css";
+import site from "../config/site";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import JsonLd from "../components/JsonLd.astro";
+import { localBusinessSchema, breadcrumbSchema } from "../lib/schema";
+
+interface Props {
+  title: string;
+  description?: string;
+  titleIsFull?: boolean; // true = use the title exactly as written (used on the home page)
+  ogImage?: string; // optional share picture for this page, for example "/og-default.jpg"
+  breadcrumbs?: { name: string; path: string }[]; // e.g. [{ name: "Services", path: "/services/" }]
+  ogType?: string; // "website" normally, "article" for blog posts
+}
+
+const {
+  title,
+  description = site.description,
+  titleIsFull = false,
+  ogImage = "/og-default.jpg",
+  breadcrumbs = [],
+  ogType = "website",
+} = Astro.props;
+
+const pageTitle = titleIsFull ? title : `${title} | ${site.name}`;
+// canonical = the one official address of this page (stops Google seeing duplicates)
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const shareImage = new URL(ogImage, site.url).href;
+// GA4 only runs on the live site, so your own testing does not pollute the numbers
+const useGA4 = import.meta.env.PROD && site.ga4Id;
+---
+<!doctype html>
+<html lang={site.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#141416" />
+
+    <!-- Open Graph: how the page looks when shared -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={shareImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Schema markup (structured data for Google) -->
+    <JsonLd data={localBusinessSchema()} />
+    {breadcrumbs.length > 0 && <JsonLd data={breadcrumbSchema(breadcrumbs)} />}
+    <slot name="head" />
+
+    {site.googleSiteVerification && <meta name="google-site-verification" content={site.googleSiteVerification} />}
+
+    {useGA4 && (
+      <>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${site.ga4Id}`}></script>
+        <script is:inline define:vars={{ gaId: site.ga4Id }}>
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { window.dataLayer.push(arguments); };
+          window.gtag("js", new Date());
+          window.gtag("config", gaId);
+        </script>
+      </>
+    )}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    {useGA4 && <script>import "../scripts/tracking.ts";</script>}
+  </body>
+</html>

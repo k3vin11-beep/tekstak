@@ -1,0 +1,64 @@
+---
+/*
+  WHAT THIS FILE DOES: the HOME page (address: /).
+  The words and picture come from src/content/home.json, which can be edited in the CMS.
+  seoTitle / seoDescription in that file set the exact Google title and description.
+*/
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Img from "../components/Img.astro";
+import site from "../config/site";
+import home from "../content/home.json";
+
+const title = home.seoTitle || `${site.name} | ${site.tagline}`;
+const description = home.seoDescription || site.description;
+---
+<BaseLayout title={title} titleIsFull description={description}>
+  <section class="hero">
+    <div class="splat" aria-hidden="true"></div>
+    <div class="container hero-grid">
+      <div>
+        <p class="tag">{site.tagline}</p>
+        <h1>{home.heroTitle} {home.heroHighlight && <span class="marker">{home.heroHighlight}</span>}</h1>
+        <p class="lead">{home.heroText}</p>
+        <div class="actions">
+          <a class="btn" href="/contact/">Get a quote</a>
+          <a class="btn btn-ghost" href="/work/">See our work</a>
+        </div>
+      </div>
+      <!-- first thing people see: load it straight away and mark it high priority (speed tuning) -->
+      <Img
+        src={home.heroImage}
+        alt={home.heroImageAlt}
+        width={1200}
+        widths={[480, 800, 1200]}
+        sizes="(max-width: 860px) 100vw, 50vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <h2>{home.highlightsTitle}</h2>
+      <div class="grid grid-3">
+        {home.highlights.map((h) => (
+          <div class="card">
+            <h3>{h.title}</h3>
+            <p class="muted">{h.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-band">
+        <h2>{home.ctaTitle}</h2>
+        <p>{home.ctaText}</p>
+        <a class="btn" href="/contact/">Contact us</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

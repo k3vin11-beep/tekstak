@@ -1,0 +1,32 @@
+---
+/* WHAT THIS FILE DOES: the SERVICES page (address: /services/). Content comes from src/content/services.json.
+   Items with the price "Coming soon" are shown with a sticker. */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import site from "../config/site";
+import services from "../content/services.json";
+---
+<BaseLayout
+  title={services.seoTitle || "Services"}
+  description={services.seoDescription || `See the services ${site.name} offers and how to ask for a quote.`}
+  breadcrumbs={[{ name: "Services", path: "/services/" }]}
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">What we do</p>
+      <h1>Our services</h1>
+      <p class="lead">{services.intro}</p>
+      <div class="grid grid-3" style="margin-top: 32px;">
+        {services.items.map((s) => (
+          <div class:list={["card", s.price === "Coming soon" && "card-highlight"]}>
+            {s.price === "Coming soon" && <span class="sticker">Coming soon</span>}
+            <h3>{s.name}</h3>
+            {s.price && s.price !== "Coming soon" && <p class="price">{s.price}</p>}
+            <p class="muted">{s.text}</p>
+            {s.points.length > 0 && <ul>{s.points.map((p) => <li>{p}</li>)}</ul>}
+          </div>
+        ))}
+      </div>
+      <div class="actions"><a class="btn" href="/pricing/">See packages and prices</a><a class="btn btn-ghost" href="/contact/">Ask for a quote</a></div>
+    </div>
+  </section>
+</BaseLayout>

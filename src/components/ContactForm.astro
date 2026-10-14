@@ -1,0 +1,99 @@
+---
+/*
+  WHAT THIS FILE DOES: the contact form. When someone sends it, three things happen:
+    1. The message is emailed to the business through Web3Forms (free key in developer.json)
+    2. WhatsApp opens with the message already typed, addressed to the business WhatsApp number
+       (the visitor still has to press send in WhatsApp: no website can send a WhatsApp message for them)
+    3. Google Analytics is told a "lead" happened (see src/scripts/tracking.ts)
+  The "What do you need?" box can be pre-selected by a link like /contact/?service=Standard%20Website
+*/
+import site from "../config/site";
+
+const services = [
+  "Landing Page",
+  "Basic Website",
+  "Standard Website",
+  "Premium Website",
+  "Maintenance plan",
+  "Something else",
+];
+const missingKey = !site.web3formsKey;
+---
+{import.meta.env.DEV && missingKey && (
+  <p class="dev-note">Developer note: add your Web3Forms key to src/content/developer.json (web3formsKey) so this form can send email.</p>
+)}
+<form
+  id="contact-form"
+  class="form"
+  action="https://api.web3forms.com/submit"
+  method="POST"
+  data-site={site.name}
+  data-wa={site.whatsapp}
+  data-email={site.email}
+>
+  <input type="hidden" name="access_key" value={site.web3formsKey} />
+  <input type="hidden" name="subject" value={`New enquiry from the ${site.name} website`} />
+  <input type="hidden" name="from_name" value={`${site.name} website`} />
+  <!-- hidden spam trap: real people never see or fill this in, bots do -->
+  <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" />
+
+  <div><label for="name">Your name</label><input id="name" name="name" type="text" required /></div>
+  <div><label for="email">Your email</label><input id="email" name="email" type="email" required /></div>
+  <div>
+    <label for="service">What do you need?</label>
+    <select id="service" name="service">
+      {services.map((s) => <option value={s}>{s}</option>)}
+    </select>
+  </div>
+  <div><label for="message">Tell us about your business</label><textarea id="message" name="message" rows="5" required></textarea></div>
+  <button class="btn" type="submit">Send message</button>
+  <p id="form-status" class="form-status" role="status"></p>
+  <p><a id="wa-fallback" class="btn btn-ghost" href="#" target="_blank" rel="noopener" hidden>Open WhatsApp</a></p>
+</form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#contact-form");
+  const status = document.querySelector<HTMLElement>("#form-status");
+  const fallback = document.querySelector<HTMLAnchorElement>("#wa-fallback");
+
+  // pre-select the package when the visitor arrives from a pricing button
+  const wanted = new URLSearchParams(location.search).get("service");
+  const select = form?.querySelector<HTMLSelectElement>("#service");
+  if (wanted && select && [...select.options].some((o) => o.value === wanted)) select.value = wanted;
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!status) return;
+    const data = new FormData(form);
+    const text =
+      `Hi ${form.dataset.site}, I'm ${data.get("name")}.\n` +
+      `I'm interested in: ${data.get("service")}.\n\n${data.get("message")}\n\nMy email: ${data.get("email")}`;
+    const waUrl = `https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(text)}`;
+
+    // Open WhatsApp straight away, inside the click, so the browser does not block it.
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+    if (fallback) {
+      fallback.href = waUrl;
+      fallback.hidden = false;
+    }
+
+    status.textContent = "Sending...";
+    data.set("subject", `New enquiry from ${data.get("name")} (${data.get("service")})`);
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      const result = await response.json();
+      if (!result.success) throw new Error("not sent");
+      form.reset();
+      status.textContent =
+        "Thank you! We have your message by email. WhatsApp should have opened with it ready to send: please press send there too.";
+      // tells src/scripts/tracking.ts to record a "generate_lead" event in Google Analytics
+      document.dispatchEvent(new CustomEvent("lead:sent", { detail: { form: "contact" } }));
+    } catch {
+      status.textContent = `Your WhatsApp chat should be open: please press send there. We could not send the email copy, so you can also email us at ${form.dataset.email}.`;
+    }
+  });
+</script>
