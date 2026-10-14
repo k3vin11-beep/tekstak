@@ -1,0 +1,201 @@
+# =====================================================================
+# WHAT THIS FILE DOES: tells the CMS (Decap) which files can be edited and what the editing form looks like.
+# Each "file" below matches one file in src/content/.
+# Editing in the CMS saves a change to GitHub, and the host (Vercel or Netlify) rebuilds the site.
+#
+# SETUP: change `repo` below to your GitHub repo (for example your-username/tekstak-studios).
+# See docs/cms-setup.md for the login setup. Test it before you rely on it.
+# =====================================================================
+
+backend:
+  name: github
+  repo: YOUR-GITHUB-USERNAME/YOUR-REPO-NAME   # EDIT: the GitHub repo that holds this site
+  branch: main
+  # base_url: https://your-oauth-proxy.example.com   # only if you use your own login proxy (docs/cms-setup.md)
+
+# Lets you try the CMS on your own computer (it only switches on when the address is localhost)
+local_backend: true
+
+# Where uploaded photos are saved, and the path stored in the content files.
+# They go into src/assets so Astro can optimise them automatically.
+media_folder: "src/assets/uploads"
+public_folder: "/src/assets/uploads"
+
+collections:
+  # =====================================================================
+  # BLOG POSTS: one file per post in src/content/blog
+  # =====================================================================
+  - name: "blog"
+    label: "Blog posts"
+    label_singular: "Blog post"
+    folder: "src/content/blog"
+    create: true
+    extension: "md"
+    slug: "{{slug}}"
+    summary: "{{title}} ({{category}})"
+    sortable_fields: ["date", "title"]
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      # EDIT the options below to change the categories. New categories get their own page automatically.
+      - { label: "Category", name: "category", widget: "select", options: ["Website tips", "Packages", "News"], default: "Website tips" }
+      - { label: "Short summary (shown in lists and on Google, 150 to 160 characters)", name: "description", widget: "text" }
+      - { label: "Cover photo", name: "image", widget: "image" }
+      - { label: "Describe the cover photo", name: "imageAlt", widget: "string" }
+      - { label: "Author (optional)", name: "author", widget: "string", required: false }
+      - { label: "Hide this post (draft)", name: "draft", widget: "boolean", default: false }
+      - { label: "Post text", name: "body", widget: "markdown" }
+
+  # =====================================================================
+  # PAGES: one file per page in src/content
+  # =====================================================================
+  - name: "pages"
+    label: "Website content"
+    files:
+      # ---------------------------------------------------------------
+      - label: "Business details"
+        name: "business"
+        file: "src/content/business.json"
+        fields:
+          - { label: "Business name", name: "name", widget: "string" }
+          - { label: "Short tagline", name: "tagline", widget: "string" }
+          - { label: "Description shown on Google (about 150 to 160 characters)", name: "description", widget: "text" }
+          - { label: "Phone number (optional, leave empty to hide)", name: "phone", widget: "string", required: false }
+          - { label: "WhatsApp number the contact form opens (digits only, with country code)", name: "whatsapp", widget: "string" }
+          - { label: "Email address", name: "email", widget: "string" }
+          - { label: "Where you are based", name: "address", widget: "string" }
+          - { label: "Opening hours (optional, leave empty to hide)", name: "hours", widget: "string", required: false }
+          - { label: "Instagram link (optional)", name: "instagram", widget: "string", required: false }
+          - { label: "Facebook link (optional)", name: "facebook", widget: "string", required: false }
+
+      # ---------------------------------------------------------------
+      - label: "Home page"
+        name: "home"
+        file: "src/content/home.json"
+        fields:
+          - { label: "Google title (about 50 to 60 characters)", name: "seoTitle", widget: "string", required: false }
+          - { label: "Google description (about 150 to 160 characters)", name: "seoDescription", widget: "text", required: false }
+          - { label: "Main heading", name: "heroTitle", widget: "string" }
+          - { label: "Highlighted words at the end of the heading (pink marker)", name: "heroHighlight", widget: "string", required: false }
+          - { label: "Intro text", name: "heroText", widget: "text" }
+          - { label: "Main picture", name: "heroImage", widget: "image" }
+          - { label: "Describe the main picture", name: "heroImageAlt", widget: "string" }
+          - { label: "Heading above the highlights", name: "highlightsTitle", widget: "string" }
+          - label: "Highlights"
+            name: "highlights"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+          - { label: "Bottom banner heading", name: "ctaTitle", widget: "string" }
+          - { label: "Bottom banner text", name: "ctaText", widget: "text" }
+
+      # ---------------------------------------------------------------
+      - label: "About page"
+        name: "about"
+        file: "src/content/about.md"
+        fields:
+          - { label: "Google title (about 50 to 60 characters)", name: "seoTitle", widget: "string", required: false }
+          - { label: "Heading", name: "title", widget: "string" }
+          - { label: "Description shown on Google", name: "description", widget: "text" }
+          - { label: "Picture", name: "image", widget: "image" }
+          - { label: "Describe the picture", name: "imageAlt", widget: "string" }
+          - { label: "Page text", name: "body", widget: "markdown" }
+
+      # ---------------------------------------------------------------
+      - label: "Services page"
+        name: "services"
+        file: "src/content/services.json"
+        fields:
+          - { label: "Google title (about 50 to 60 characters)", name: "seoTitle", widget: "string", required: false }
+          - { label: "Google description (about 150 to 160 characters)", name: "seoDescription", widget: "text", required: false }
+          - { label: "Intro text", name: "intro", widget: "text" }
+          - label: "Services"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Price (type Coming soon to show a sticker)", name: "price", widget: "string", required: false }
+              - { label: "Description", name: "text", widget: "text" }
+              - label: "Bullet points"
+                name: "points"
+                widget: "list"
+                required: false
+                field: { label: "Point", name: "point", widget: "string" }
+
+      # ---------------------------------------------------------------
+      - label: "Our work page"
+        name: "work"
+        file: "src/content/work.json"
+        fields:
+          - { label: "Google title (about 50 to 60 characters)", name: "seoTitle", widget: "string", required: false }
+          - { label: "Google description (about 150 to 160 characters)", name: "seoDescription", widget: "text", required: false }
+          - { label: "Intro text", name: "intro", widget: "text" }
+          - label: "Projects"
+            name: "projects"
+            widget: "list"
+            fields:
+              - { label: "Project name", name: "name", widget: "string" }
+              - { label: "What it is (one line)", name: "type", widget: "string" }
+              - { label: "Screenshot", name: "image", widget: "image" }
+              - { label: "Describe the screenshot", name: "alt", widget: "string" }
+              - { label: "Link to the live site (optional)", name: "url", widget: "string", required: false }
+
+      # ---------------------------------------------------------------
+      - label: "Pricing page"
+        name: "pricing"
+        file: "src/content/pricing.json"
+        fields:
+          - { label: "Google title (about 50 to 60 characters)", name: "seoTitle", widget: "string", required: false }
+          - { label: "Google description (about 150 to 160 characters)", name: "seoDescription", widget: "text", required: false }
+          - { label: "Intro text", name: "intro", widget: "text" }
+          - label: "Packages"
+            name: "plans"
+            widget: "list"
+            fields:
+              - { label: "Package name (must match an option in the contact form)", name: "name", widget: "string" }
+              - { label: "Price", name: "price", widget: "string" }
+              - { label: "Short description", name: "text", widget: "text" }
+              - label: "What is included"
+                name: "points"
+                widget: "list"
+                field: { label: "Point", name: "point", widget: "string" }
+              - { label: "Mark as most popular", name: "highlighted", widget: "boolean", default: false }
+          - { label: "Note under the packages", name: "note", widget: "text", required: false }
+          - { label: "Maintenance heading", name: "maintenanceTitle", widget: "string" }
+          - { label: "Maintenance intro", name: "maintenanceIntro", widget: "text" }
+          - label: "Maintenance plans"
+            name: "maintenance"
+            widget: "list"
+            fields:
+              - { label: "Plan name", name: "name", widget: "string" }
+              - { label: "Price", name: "price", widget: "string" }
+              - label: "What is included"
+                name: "points"
+                widget: "list"
+                field: { label: "Point", name: "point", widget: "string" }
+
+      # ---------------------------------------------------------------
+      - label: "FAQ page"
+        name: "faq"
+        file: "src/content/faq.json"
+        fields:
+          - { label: "Google title (about 50 to 60 characters)", name: "seoTitle", widget: "string", required: false }
+          - { label: "Google description (about 150 to 160 characters)", name: "seoDescription", widget: "text", required: false }
+          - { label: "Intro text", name: "intro", widget: "text" }
+          - label: "Questions"
+            name: "questions"
+            widget: "list"
+            fields:
+              - { label: "Question", name: "question", widget: "string" }
+              - { label: "Answer", name: "answer", widget: "text" }
+
+      # ---------------------------------------------------------------
+      - label: "Blog page (heading and intro)"
+        name: "blogpage"
+        file: "src/content/blog.json"
+        fields:
+          - { label: "Google title (about 50 to 60 characters)", name: "seoTitle", widget: "string", required: false }
+          - { label: "Google description (about 150 to 160 characters)", name: "seoDescription", widget: "text", required: false }
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Intro text", name: "intro", widget: "text" }
