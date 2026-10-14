@@ -11,7 +11,7 @@
   --muted: #a3a3ab;       
   --line: #3a3a40;         
   --radius: 4px;          
-  --max: 1100px;           
+  --max: 100%;           
  
   --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-head: "Anton", Impact, "Arial Narrow Bold", sans-serif;
@@ -31,7 +31,7 @@ h2 { font-size: clamp(1.8rem, 4vw, 2.7rem); }
 h3 { font-size: 1.45rem; }
 p { margin: 0 0 1em; }
 
-.container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+.container { width: 100%; max-width: none; margin: 0 auto; padding: 0 32px; }
 .section { padding: 64px 0; }
 .section-soft { background: var(--bg-soft); border-top: 2px solid var(--line); border-bottom: 2px solid var(--line); }
 .eyebrow { color: var(--brand); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; font-size: .85rem; margin-bottom: .6em; }
